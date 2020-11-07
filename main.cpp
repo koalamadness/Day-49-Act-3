@@ -13,7 +13,7 @@ int main() {
   int myPos;
   Menu myMenu;
   Lista myLista;
-  Cancion myCancion;
+  Cancion* myCancion;
   string myStr;
   unsigned int posRank;
 
@@ -33,19 +33,19 @@ int main() {
         cout << "Nombre: ";
         cin.ignore(numeric_limits<streamsize>::max(), '\n' );
         getline(cin, myStr);
-        myCancion.setNombre(myStr);
+        myCancion->setNombre(myStr);
         
         cout << "Autor: ";
         getline(cin, myStr);
-        myCancion.setAutor(myStr);
+        myCancion->setAutor(myStr);
 
         cout << "Intérprete: ";
         getline(cin, myStr);
-        myCancion.setInterprete(myStr);
+        myCancion->setInterprete(myStr);
 
         cout << "Posición en el ranking: ";
         cin >> posRank;
-        myCancion.setPosRanking(posRank);
+        myCancion->setPosRanking(posRank);
 
         cout << "Posición en la que desea insertar la canción en el arreglo: ";
         cin >> myPos;
@@ -86,7 +86,7 @@ int main() {
 
         try 
         {
-        cout << myLista.recuperar(myPos).toString() << endl;
+        cout << myLista.recuperar(myPos)->toString() << endl;
         } 
         catch (ListException ex)
         {
@@ -99,14 +99,14 @@ int main() {
       case 4:
       {
         cout << "La primera posición es " << myLista.getPrimPos() << endl;
-        cout << myLista.recuperar(myLista.getPrimPos()).toString() << endl;
+        cout << myLista.recuperar(myLista.getPrimPos())->toString() << endl;
         break;
       }
 
       case 5:
       {
         cout << "La última posición es " << myLista.getUltPos() << endl;
-        cout << myLista.recuperar(myLista.getUltPos()).toString() << endl;
+        cout << myLista.recuperar(myLista.getUltPos())->toString() << endl;
         break;
       }
 
@@ -119,7 +119,7 @@ int main() {
 
         try
         {
-        cout << myLista.recuperar(antPos).toString() << endl;
+        cout << myLista.recuperar(antPos)->toString() << endl;
 
         cout << "La anterior posición es " << myLista.getAntPos(myPos) << endl;        
 
@@ -141,7 +141,7 @@ int main() {
 
         try
         {
-          cout << myLista.recuperar(sigPos).toString() << endl;
+          cout << myLista.recuperar(sigPos)->toString() << endl;
 
           cout << "La siguiente posición es " << myLista.getSigPos(myPos) << endl;
         }
@@ -194,7 +194,7 @@ int main() {
         cin.ignore(numeric_limits<streamsize>::max(), '\n' );
         getline(cin, myStr);
 
-        myCancion.setNombre(myStr);
+        myCancion->setNombre(myStr);
 
         myPos = myLista.encontrarCancionLinear(myCancion);
 
@@ -208,7 +208,7 @@ int main() {
         {
           cout << "se encuentra en la posición " << myPos << endl;
           cout << "Canción encontrada: " << endl;
-          cout << "Archivo MP3: " << myLista.recuperar(myPos).getArhivoMP3() << endl;
+          cout << "Archivo MP3: " << myLista.recuperar(myPos)->getArhivoMP3() << endl;
         }     
         break;
       }
@@ -219,7 +219,7 @@ int main() {
         cin.ignore(numeric_limits<streamsize>::max(), '\n' );
         getline(cin, myStr);
 
-        myCancion.setNombre(myStr);
+        myCancion->setNombre(myStr);
 
         myPos = myLista.encontrarCancionBinary(myCancion);
 
@@ -233,7 +233,7 @@ int main() {
         {
           cout << "se encuentra en la posición " << myPos << endl;
           cout << "Canción encontrada: " << endl;
-          cout << "Archivo MP3: " << myLista.recuperar(myPos).getArhivoMP3() << endl;
+          cout << "Archivo MP3: " << myLista.recuperar(myPos)->getArhivoMP3() << endl;
         }   
         break;
       }
@@ -293,7 +293,7 @@ int main() {
         cin.ignore(numeric_limits<streamsize>::max(), '\n' );
         getline(cin, myStr);
 
-        myCancion.setInterprete(myStr);
+        myCancion->setInterprete(myStr);
 
         myPos = myLista.encontrarCancionLinearInter(myCancion);
 
@@ -307,7 +307,7 @@ int main() {
         {
           cout << "se encuentra en la posición " << myPos << endl;
           cout << "Canción encontrada: " << endl;
-          cout << "Archivo MP3: " << myLista.recuperar(myPos).getArhivoMP3() << endl;
+          cout << "Archivo MP3: " << myLista.recuperar(myPos)->getArhivoMP3() << endl;
         }     
         break;
       }
@@ -319,7 +319,7 @@ int main() {
         cin.ignore(numeric_limits<streamsize>::max(), '\n' );
         getline(cin, myStr);
 
-        myCancion.setInterprete(myStr);
+        myCancion->setInterprete(myStr);
 
         myPos = myLista.encontrarCancionBinaryInter(myCancion);
 
@@ -333,7 +333,7 @@ int main() {
         {
           cout << "se encuentra en la posición " << myPos << endl;
           cout << "Canción encontrada: " << endl;
-          cout << "Archivo MP3: " << myLista.recuperar(myPos).getArhivoMP3() << endl;
+          cout << "Archivo MP3: " << myLista.recuperar(myPos)->getArhivoMP3() << endl;
         }     
         break;
       }

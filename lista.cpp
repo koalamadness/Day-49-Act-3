@@ -20,9 +20,9 @@ bool Lista::posValida(const int& p)
   return p >= 0 and p <= ultimo;
 }
 
-void Lista::intercambiar(Cancion& a, Cancion& b)
+void Lista::intercambiar(Cancion*& a, Cancion*& b)
 {
-  Cancion aux(a);
+  Cancion* aux(a);
   a = b;
   b = aux;
 }
@@ -38,7 +38,7 @@ Lista::Lista(const Lista& l)
 bool Lista::estaVacio() {return ultimo == -1;} 
 bool Lista::estaLleno() {return ultimo == 2999;} 
 
-void Lista::insertar(const Cancion& c, const int& p)
+void Lista::insertar(Cancion* &c, const int& p)
 {
   if(estaLleno())
   {
@@ -109,7 +109,7 @@ int Lista::getSigPos(const int& p)
   return p + 1;
 }
 
-Cancion Lista::recuperar(const int& p) {
+Cancion* Lista::recuperar(const int& p) {
   if(!posValida(p)) {
     throw ListException("Posición invalida, recuperar");
   }
@@ -124,7 +124,7 @@ string Lista::toString()
   while(i <= ultimo)
   {
     cadena += to_string(i) + " | ";
-    cadena += listaExitos[i].toString();
+    cadena += listaExitos[i]->toString();
     cadena += "\n";    
     i++;
   }
@@ -133,14 +133,14 @@ string Lista::toString()
 
 void Lista::eliminarTodo() {ultimo = -1;}
 
-int Lista::encontrarCancionLinear(const Cancion& c)
+int Lista::encontrarCancionLinear(Cancion*& c)
 {
   int i(0);
 
   while(i <= ultimo)
   {
     
-    if(listaExitos[i].getNombre() == c.getNombre()) 
+    if(listaExitos[i]->getNombre() == c->getNombre()) 
     {
       return i;
     }
@@ -150,14 +150,14 @@ int Lista::encontrarCancionLinear(const Cancion& c)
   return -1;
 }
 
-int Lista::encontrarCancionLinearInter(const Cancion& c)
+int Lista::encontrarCancionLinearInter(Cancion*& c)
 {
   int i(0);
 
   while(i <= ultimo)
   {
     
-    if(listaExitos[i].getInterprete() == c.getInterprete()) 
+    if(listaExitos[i]->getInterprete() == c->getInterprete()) 
     {
       return i;
     }
@@ -167,7 +167,7 @@ int Lista::encontrarCancionLinearInter(const Cancion& c)
   return -1;
 }
 
-int Lista::encontrarCancionBinary(const Cancion& c)
+int Lista::encontrarCancionBinary(Cancion*& c)
 {
  int i(0), j(ultimo), m;
 
@@ -175,12 +175,12 @@ int Lista::encontrarCancionBinary(const Cancion& c)
  {
    m = (i + j)/2;
  
-  if(listaExitos[m].getNombre() == c.getNombre()) 
+  if(listaExitos[m]->getNombre() == c->getNombre()) 
   {
     return m;
   }
 
-  if(c.getNombre() < listaExitos[m].getNombre()) 
+  if(c->getNombre() < listaExitos[m]->getNombre()) 
   {
     j = m - 1;
   }
@@ -194,7 +194,7 @@ int Lista::encontrarCancionBinary(const Cancion& c)
 
 }
 
-int Lista::encontrarCancionBinaryInter(const Cancion& c)
+int Lista::encontrarCancionBinaryInter(Cancion*& c)
 {
  int i(0), j(ultimo), m;
 
@@ -202,12 +202,12 @@ int Lista::encontrarCancionBinaryInter(const Cancion& c)
  {
    m = (i + j)/2;
  
-  if(listaExitos[m].getInterprete() == c.getInterprete()) 
+  if(listaExitos[m]->getInterprete() == c->getInterprete()) 
   {
     return m;
   }
 
-  if(c.getInterprete() < listaExitos[m].getInterprete()) 
+  if(c->getInterprete() < listaExitos[m]->getInterprete()) 
   {
     j = m - 1;
   }
@@ -233,7 +233,7 @@ void Lista::sortBubbleNombre()
 
     while(j < i)
     {
-      if (listaExitos[j].getNombre() > listaExitos[j + 1].getNombre())
+      if (listaExitos[j]->getNombre() > listaExitos[j + 1]->getNombre())
       {
         intercambiar(listaExitos[j], listaExitos[j + 1]);
         
@@ -259,7 +259,7 @@ void Lista::sortBubbleInter()
 
     while(j < i)
     {
-      if (listaExitos[j].getInterprete() > listaExitos[j + 1].getInterprete())
+      if (listaExitos[j]->getInterprete() > listaExitos[j + 1]->getInterprete())
       {
         intercambiar(listaExitos[j], listaExitos[j + 1]);
         
@@ -277,14 +277,14 @@ void Lista::sortBubbleInter()
 void Lista::sortInsertNombre()
 {
   int i(1), j;
-  Cancion aux;
+  Cancion* aux;
 
   while(i <= ultimo) 
   {
     aux = listaExitos[i];
     j = i;
 
-    while(j > 0 and aux.getNombre() < listaExitos[j - 1].getNombre())
+    while(j > 0 and aux->getNombre() < listaExitos[j - 1]->getNombre())
     {
       listaExitos[j] = listaExitos[j - 1];
 
@@ -303,14 +303,14 @@ void Lista::sortInsertNombre()
 void Lista::sortInsertInter()
 {
   int i(1), j;
-  Cancion aux;
+  Cancion* aux;
 
   while(i <= ultimo) 
   {
     aux = listaExitos[i];
     j = i;
 
-    while(j > 0 and aux.getInterprete() < listaExitos[j - 1].getInterprete())
+    while(j > 0 and aux->getInterprete() < listaExitos[j - 1]->getInterprete())
     {
       listaExitos[j] = listaExitos[j - 1];
 
@@ -337,7 +337,7 @@ void Lista::sortSelectNombre()
 
     while(j <= ultimo) 
     {
-      if(listaExitos[j].getNombre() < listaExitos[m].getNombre()) 
+      if(listaExitos[j]->getNombre() < listaExitos[m]->getNombre()) 
       {
         m = j;
       }
@@ -364,7 +364,7 @@ void Lista::sortSelectInter()
 
     while(j <= ultimo) 
     {
-      if(listaExitos[j].getInterprete() < listaExitos[m].getInterprete()) 
+      if(listaExitos[j]->getInterprete() < listaExitos[m]->getInterprete()) 
       {
         m = j;
       }
@@ -393,7 +393,7 @@ void Lista::sortShellNombre()
     {
       j = i;
 
-      while(j >= dif and listaExitos[j - dif].getNombre() > listaExitos[j].getNombre())
+      while(j >= dif and listaExitos[j - dif]->getNombre() > listaExitos[j]->getNombre())
       {
         intercambiar(listaExitos[j - dif], listaExitos[j]);
 
@@ -420,7 +420,7 @@ void Lista::sortShellInter()
     {
       j = i;
 
-      while(j >= dif and listaExitos[j - dif].getInterprete() > listaExitos[j].getInterprete())
+      while(j >= dif and listaExitos[j - dif]->getInterprete() > listaExitos[j]->getInterprete())
       {
         intercambiar(listaExitos[j - dif], listaExitos[j]);
 
