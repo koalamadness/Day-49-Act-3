@@ -6,6 +6,8 @@
 
 using namespace std;
 
+// Esta lista contiene datos
+
 int main() {
   unsigned int op;
   int myPos;
